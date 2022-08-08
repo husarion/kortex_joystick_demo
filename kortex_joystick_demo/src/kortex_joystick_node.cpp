@@ -126,7 +126,6 @@ void KortexJoystickNode::call_gripper_controller_service(const bool state)
       goal.command.position = 0.0;
       gripper_controller_client_.sendGoal(goal);
       gripper_controller_client_.waitForResult(ros::Duration(30));
-      std::cout << gripper_controller_client_.getResult() << std::endl; 
     } else if (state == GRIPPER_CLOSE) {
       goal.command.position = gripper_closed_position_;
       gripper_controller_client_.sendGoal(goal);

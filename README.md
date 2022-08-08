@@ -13,7 +13,7 @@ If the output is:
 jstest: No such file or directory
 ```
 
-See `ls /dev/input | grep js` and find your joy number. If it differs, apply changes in *compose.yaml* and launch file.
+See `ls /dev/input | grep js` and find your joy number. If it differs, edit `docker-compose.yaml` - add `gamepad_device:=jsX` to command in `kortex-ros` container, where `X` is your joy number. 
 
 ## Running demo
 
@@ -27,10 +27,10 @@ git clone https://github.com/husarion/kortex_joystick_demo.git
 
 ```bash
 cd kortex_joystick_demo
-docker-compose up --build
+docker-compose up
 ```
 
-## Controlling kinova manipulator
+## Controlling Kinova manipulator
 
 By default, manipulator will be controlled by gamepad. To start driving and disable manipulator hold `LB` button.
 
@@ -38,7 +38,7 @@ By default, manipulator will be controlled by gamepad. To start driving and disa
 
 |  Button  |      Function      |
 |:--------:|:------------------:|
-|   `LB`   |   disable driving  |
+|   `LB`   |   disable movement |
 |   `LT`   |    close gripper   |
 |   `RT`   |    open gripper    |
 |   `B`    |   emergency stop   |
@@ -48,13 +48,13 @@ By default, manipulator will be controlled by gamepad. To start driving and disa
 |   `UP CROSS KEY`    |    increase speed    |
 |   `DOWN CROSS KEY`  |    decrease speed    |
 
+![buttons](docs/gamepad_buttons.png)
 
 To move manipulator use sticks.
 By default, cartesian linear/angular movement in `X` and `Y` are held by left stick and linear/angular `Z` movement is controlled with right stick.
-To switch between *linear* and *angular* mode use *X* and *Y* buttons 
+To switch between **linear** and **angular** mode use **X** and **Y** buttons. 
 
-(see [Manipulator button mapping](#manipulator-button-mapping)
-
+It is advised to put manipulator in **STOP** mode (**B** button) when not using it (e.g. when driving). To exit this mode use **CLEAR FAULTS** (**A** button).
 
 ## Controlling robot
 

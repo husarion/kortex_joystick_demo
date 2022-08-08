@@ -3,6 +3,7 @@
     <arg name="robot_name" default="kinova_gen3" />
     <arg name="gripper_name" default="robotiq_2f_85" />
     <arg name="gamepad_name" default="logitech_f710" />
+    <arg name="gamepad_device" default="js0" />
 
     <include file="$(find kortex_driver)/launch/kortex_driver.launch">
         <arg name="robot_name" value="$(arg robot_name)" />
@@ -10,7 +11,9 @@
         <arg name="start_rviz" value="false" />
     </include>
 
-    <node name="$(arg gamepad_name)_joy" pkg="joy" type="joy_node" ns="$(arg gamepad_name)" />
+    <node name="$(arg gamepad_name)_joy" pkg="joy" type="joy_node" ns="$(arg gamepad_name)">
+        <param name="dev" value="/dev/input/$(arg gamepad_device)" />
+    </node>
 
     <node name="joy2twist_node" pkg="joy2twist" type="joy2twist_node" output="screen">
         <rosparam file="$(find joy2twist)/config/joy2twist.yaml" />
