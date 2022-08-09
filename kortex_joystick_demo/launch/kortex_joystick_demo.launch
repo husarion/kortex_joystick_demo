@@ -4,10 +4,20 @@
     <arg name="gripper_name" default="robotiq_2f_85" />
     <arg name="gamepad_name" default="logitech_f710" />
     <arg name="gamepad_device" default="js0" />
+    <arg name="test" default="false" />
+
+    <!-- Load panther robot -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find panther_description)/../examples/ouster_os1_32/panther.urdf.xacro" />
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(arg test)" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- Create transfor between panther and kinova manipulator -->
+    <node pkg="tf" type="static_transform_publisher" name="panther_kinova_broadcaster" args="0 0 0.354 0 0 0 1 base_link $(arg robot_name)_base_link 100" />
 
     <include file="$(find kortex_driver)/launch/kortex_driver.launch">
         <arg name="robot_name" value="$(arg robot_name)" />
         <arg name="gripper" value="$(arg gripper_name)" />
+        <arg name="prefix" value="$(arg robot_name)_" />
         <arg name="start_rviz" value="false" />
     </include>
 
@@ -16,7 +26,7 @@
     </node>
 
     <node name="joy2twist_node" pkg="joy2twist" type="joy2twist_node" output="screen">
-        <rosparam file="$(find joy2twist)/config/joy2twist.yaml" />
+        <rosparam file="$(find kortex_joystick_demo)/config/joy2twist.yaml" />
         <remap from="joy" to="/$(arg gamepad_name)/joy" />
     </node>
 

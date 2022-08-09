@@ -26,6 +26,7 @@ RUN cd ros_ws \
     && source /opt/ros/$ROS_DISTRO/setup.bash \
     && git clone https://github.com/Kinovarobotics/ros_kortex.git src/ros_kortex \
     && git clone https://github.com/husarion/joy2twist.git src/joy2twist \
+    && git clone https://github.com/husarion/panther_description.git src/panther_description \
     && rosdep install --from-paths src --ignore-src -y \
     && catkin_make -DCATKIN_ENABLE_TESTING=0 -DCMAKE_BUILD_TYPE=Release
 
