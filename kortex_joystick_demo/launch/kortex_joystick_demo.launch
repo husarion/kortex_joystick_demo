@@ -1,6 +1,7 @@
 <launch>
 
     <arg name="robot_name" default="kinova_gen3" />
+    <arg name="robot_ip_address" default="192.168.1.10"/>
     <arg name="gripper_name" default="robotiq_2f_85" />
     <arg name="gamepad_name" default="logitech_f710" />
     <arg name="gamepad_device" default="js0" />
@@ -16,6 +17,7 @@
 
     <include file="$(find kortex_driver)/launch/kortex_driver.launch">
         <arg name="robot_name" value="$(arg robot_name)" />
+        <arg name="ip_address" value="$(arg robot_ip_address)"/>
         <arg name="gripper" value="$(arg gripper_name)" />
         <arg name="prefix" value="$(arg robot_name)_" />
         <arg name="start_rviz" value="false" />
