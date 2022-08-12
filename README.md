@@ -78,7 +78,7 @@ After successful launch open Web browser and go to [10.15.20.3:8080](http://10.1
 
 ## Controlling Kinova manipulator
 
-By default, after successful launch manipulator will be controlled by gamepad. To start driving and disable manipulator **ENABLE MOVEMENT** (**LB** button). To switch back to using manipulator press **ENABLE MOVEMENT** (**A** button).
+By default, after a successful launch manipulator will be controlled by the gamepad. To start driving and disable the manipulator press **DISABLE MOVEMENT** (**LB** button). To switch back to using the manipulator press **ENABLE MOVEMENT** (**A** button).
 
 ### Manipulator button mapping
 
@@ -99,8 +99,6 @@ By default, after successful launch manipulator will be controlled by gamepad. T
 To move manipulator use sticks.
 By default, cartesian linear/angular movement in `X` and `Y` are held by left stick and linear/angular `Z` movement is controlled with right stick.
 To switch between **linear** and **angular** mode use **X** and **Y** buttons. 
-
-It is advised to put manipulator in **STOP** mode (**B** button) when not using it (e.g. when driving). To exit this mode use **CLEAR FAULTS** (**A** button).
 
 ## Controlling robot
 
