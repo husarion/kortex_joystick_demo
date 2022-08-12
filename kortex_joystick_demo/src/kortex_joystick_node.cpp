@@ -3,7 +3,7 @@
 namespace kortex_joystick
 {
 KortexJoystickNode::KortexJoystickNode(ros::NodeHandle * nh, ros::NodeHandle * private_nh)
-: gripper_controller_client_("robotiq_2f_85_gripper_controller/gripper_cmd", true)
+: gripper_controller_client_("gripper_controller/gripper_cmd", true)
 {
   private_nh->param<float>("max_linear_vel", max_linear_vel_, 0.2);
   private_nh->param<float>("min_linear_vel", min_linear_vel_, 0.05);

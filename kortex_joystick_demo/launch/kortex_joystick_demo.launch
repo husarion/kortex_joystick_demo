@@ -36,7 +36,10 @@
         <node name="kortex_joystick" pkg="kortex_joystick_demo" type="kortex_joystick_demo_node" output="screen">
             <rosparam file="$(find kortex_joystick_demo)/config/kortex_joystick_config.yaml" />
             <remap from="joy" to="/$(arg gamepad_name)/joy" />
+            <remap from="gripper_controller/gripper_cmd" to="$(arg robot_name)_$(arg gripper_name)_gripper_controller/gripper_cmd" />
         </node>
     </group>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find kortex_joystick_demo)/config/kinova_rviz.rviz" output="screen" />
 
 </launch>
