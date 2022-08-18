@@ -21,7 +21,7 @@ KortexJoystickNode::KortexJoystickNode(ros::NodeHandle * nh, ros::NodeHandle * p
   linear_vel_ = min_linear_vel_ + (max_linear_vel_ - min_linear_vel_) / 2;
   angular_vel_ = min_angular_vel_ + (max_angular_vel_ - min_angular_vel_) / 2;
 
-  error_sub_ = nh->subscribe("/kinova_gen3/kortex_error", 1, &KortexJoystickNode::error_callback, this);
+  feedback_sub_ = nh->subscribe("base_feedback", 1, &KortexJoystickNode::feedback_callback, this);
   joy_sub_ = nh->subscribe("joy", 1, &KortexJoystickNode::joy_callback, this);
   kortex_twist_pub_ = nh->advertise<kortex_driver::TwistCommand>("in/cartesian_velocity", 1);
   emergency_stop_pub_ = nh->advertise<std_msgs::Empty>("in/emergency_stop", 1);
@@ -30,10 +30,9 @@ KortexJoystickNode::KortexJoystickNode(ros::NodeHandle * nh, ros::NodeHandle * p
   ROS_INFO("[%s] Node started", node_name_.c_str());
 }
 
-void KortexJoystickNode::error_callback(const kortex_driver::KortexError & error_msg)
+void KortexJoystickNode::feedback_callback(const kortex_driver::BaseCyclic_Feedback & feedback_msg)
 {
-  error_code_ = error_msg.code;
-  ROS_INFO("[%s] ========= Error code: ", error_code_.c_str());
+  active_state_ = feedback_msg.base.active_state;
 }
 
 void KortexJoystickNode::joy_callback(const sensor_msgs::Joy & joy_msg)
@@ -110,7 +109,7 @@ void KortexJoystickNode::joy_to_linear_twist_command(
   float linear_velocity_factor = 0.1;
   auto a = joy_msg.axes.at(0);
   twist_command_msg.twist.linear_x = linear_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
-  twist_command_msg.twist.linear_y = - linear_vel_ * joy_msg.axes.at(LEFT_STICK_UD_ID);
+  twist_command_msg.twist.linear_y = -linear_vel_ * joy_msg.axes.at(LEFT_STICK_UD_ID);
   twist_command_msg.twist.linear_z = linear_vel_ * joy_msg.axes.at(RIGHT_STICK_UD_ID);
 }
 
@@ -120,15 +119,18 @@ void KortexJoystickNode::joy_to_angular_twist_command(
   float linear_velocity_factor = 0.1;
   auto a = joy_msg.axes.at(0);
   twist_command_msg.twist.angular_x = angular_vel_ * joy_msg.axes.at(LEFT_STICK_UD_ID);
-  twist_command_msg.twist.angular_y = - angular_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
+  twist_command_msg.twist.angular_y = -angular_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
   twist_command_msg.twist.angular_z = angular_vel_ * joy_msg.axes.at(RIGHT_STICK_UD_ID);
 }
 
 void KortexJoystickNode::call_gripper_controller_service(const bool state)
 {
   try {
-    control_msgs::GripperCommandGoal goal;
+    if (active_state_ != MANIPULATOR_READY) {
+      throw std::runtime_error("Remove emergency stop");
+    }
 
+    control_msgs::GripperCommandGoal goal;
     if (state == GRIPPER_OPEN) {
       goal.command.position = 0.0;
       gripper_controller_client_.sendGoal(goal);
