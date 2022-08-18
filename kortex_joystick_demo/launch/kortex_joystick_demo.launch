@@ -13,7 +13,7 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
     <!-- Create transfor between panther and kinova manipulator -->
-    <node pkg="tf" type="static_transform_publisher" name="panther_kinova_broadcaster" args="-0.135 0.1725 0.354 1.57 0 0 base_link $(arg robot_name)_base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="panther_kinova_broadcaster" args="-0.135 0.1725 0.354 3.14 0 0 base_link $(arg robot_name)_base_link 100" />
 
     <include file="$(find kortex_driver)/launch/kortex_driver.launch">
         <arg name="robot_name" value="$(arg robot_name)" />
