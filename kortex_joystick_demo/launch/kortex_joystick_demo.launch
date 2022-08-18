@@ -25,6 +25,7 @@
 
     <node name="$(arg gamepad_name)_joy" pkg="joy" type="joy_node" ns="$(arg gamepad_name)">
         <param name="dev" value="/dev/input/$(arg gamepad_device)" />
+        <param name="autorepeat_rate" type="double" value="10" />
     </node>
 
     <node name="joy2twist_node" pkg="joy2twist" type="joy2twist_node" output="screen">
