@@ -108,8 +108,8 @@ void KortexJoystickNode::joy_to_linear_twist_command(
 {
   float linear_velocity_factor = 0.1;
   auto a = joy_msg.axes.at(0);
-  twist_command_msg.twist.linear_x = linear_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
-  twist_command_msg.twist.linear_y = -linear_vel_ * joy_msg.axes.at(LEFT_STICK_UD_ID);
+  twist_command_msg.twist.linear_x = -linear_vel_ * joy_msg.axes.at(LEFT_STICK_UD_ID);
+  twist_command_msg.twist.linear_y = -linear_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
   twist_command_msg.twist.linear_z = linear_vel_ * joy_msg.axes.at(RIGHT_STICK_UD_ID);
 }
 
@@ -119,7 +119,7 @@ void KortexJoystickNode::joy_to_angular_twist_command(
   float linear_velocity_factor = 0.1;
   auto a = joy_msg.axes.at(0);
   twist_command_msg.twist.angular_x = angular_vel_ * joy_msg.axes.at(LEFT_STICK_UD_ID);
-  twist_command_msg.twist.angular_y = -angular_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
+  twist_command_msg.twist.angular_y = angular_vel_ * joy_msg.axes.at(LEFT_STICK_LR_ID);
   twist_command_msg.twist.angular_z = angular_vel_ * joy_msg.axes.at(RIGHT_STICK_UD_ID);
 }
 
