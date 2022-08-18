@@ -5,6 +5,7 @@
 #include <control_msgs/GripperCommandAction.h>
 #include <geometry_msgs/Twist.h>
 #include <kortex_driver/TwistCommand.h>
+#include <kortex_driver/KortexError.h>
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/Empty.h>
@@ -43,6 +44,7 @@ public:
 
 private:
   void joy_callback(const sensor_msgs::Joy & joy_msg);
+  void error_callback(const kortex_driver::KortexError & error_msg);
 
   void joy_to_linear_twist_command(
     const sensor_msgs::Joy & joy_msg, kortex_driver::TwistCommand & twist_command_msg);
@@ -55,6 +57,7 @@ private:
   float controll_speed(const float min_vel, const float max_vel, float vel, const float sign);
 
   ros::Subscriber joy_sub_;
+  ros::Subscriber error_sub_;
   ros::Publisher kortex_twist_pub_;
   ros::Publisher emergency_stop_pub_;
   ros::Publisher clear_faults_pub_;
@@ -63,6 +66,7 @@ private:
   typedef actionlib::SimpleActionClient<control_msgs::GripperCommandAction> GripperControllerClient;
   GripperControllerClient gripper_controller_client_;
 
+  int error_code_;
   int mode_;
   int gripper_state_;
   float max_linear_vel_;

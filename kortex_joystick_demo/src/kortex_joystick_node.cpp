@@ -21,12 +21,19 @@ KortexJoystickNode::KortexJoystickNode(ros::NodeHandle * nh, ros::NodeHandle * p
   linear_vel_ = min_linear_vel_ + (max_linear_vel_ - min_linear_vel_) / 2;
   angular_vel_ = min_angular_vel_ + (max_angular_vel_ - min_angular_vel_) / 2;
 
+  error_sub_ = nh->subscribe("/kinova_gen3/kortex_error", 1, &KortexJoystickNode::error_callback, this);
   joy_sub_ = nh->subscribe("joy", 1, &KortexJoystickNode::joy_callback, this);
   kortex_twist_pub_ = nh->advertise<kortex_driver::TwistCommand>("in/cartesian_velocity", 1);
   emergency_stop_pub_ = nh->advertise<std_msgs::Empty>("in/emergency_stop", 1);
   clear_faults_pub_ = nh->advertise<std_msgs::Empty>("in/clear_faults", 1);
 
   ROS_INFO("[%s] Node started", node_name_.c_str());
+}
+
+void KortexJoystickNode::error_callback(const kortex_driver::KortexError & error_msg)
+{
+  error_code_ = error_msg.code;
+  ROS_INFO("[%s] ========= Error code: ", error_code_.c_str());
 }
 
 void KortexJoystickNode::joy_callback(const sensor_msgs::Joy & joy_msg)
