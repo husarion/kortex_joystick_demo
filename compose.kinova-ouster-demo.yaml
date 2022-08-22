@@ -36,17 +36,6 @@ services:
         lidar_mode:=512x10 metadata:=/ouster_metadata.json
 
 
-  ouster-clock-sync:
-    build:
-      context: ./../ouster-docker/
-    container_name: ouster-ptp-clock
-    restart: on-failure 
-    network_mode: host
-    devices:
-      - /dev/ptp0:/dev/ptp0
-    command: sudo ptp4l -i eno1 -m [global] tx_timestamp_timeout 10 
-
-
   remote-desktop:
     image: donowak/remote-desktop:lan
     container_name: vnc-remote-desktop

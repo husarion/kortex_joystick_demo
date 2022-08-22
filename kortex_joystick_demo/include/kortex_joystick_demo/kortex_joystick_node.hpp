@@ -4,6 +4,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <control_msgs/GripperCommandAction.h>
 #include <geometry_msgs/Twist.h>
+#include <kortex_driver/BaseCyclic_Feedback.h>
 #include <kortex_driver/TwistCommand.h>
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
@@ -11,7 +12,6 @@
 
 namespace kortex_joystick
 {
-
 const int LEFT_STICK_LR_ID = 0;
 const int LEFT_STICK_UD_ID = 1;
 const int RIGHT_STICK_LR_ID = 2;
@@ -36,12 +36,15 @@ const int TWIST_ANGULAR_MODE = 1;
 const int GRIPPER_OPEN = 0;
 const int GRIPPER_CLOSE = 1;
 
+const int MANIPULATOR_READY = 9;  // In state no. 9 manipulator is ready to use
+
 class KortexJoystickNode
 {
 public:
   KortexJoystickNode(ros::NodeHandle * nh, ros::NodeHandle * private_nh);
 
 private:
+  void feedback_callback(const kortex_driver::BaseCyclic_Feedback & feedback_msg);
   void joy_callback(const sensor_msgs::Joy & joy_msg);
 
   void joy_to_linear_twist_command(
@@ -54,6 +57,7 @@ private:
 
   float controll_speed(const float min_vel, const float max_vel, float vel, const float sign);
 
+  ros::Subscriber feedback_sub_;
   ros::Subscriber joy_sub_;
   ros::Publisher kortex_twist_pub_;
   ros::Publisher emergency_stop_pub_;
@@ -63,6 +67,7 @@ private:
   typedef actionlib::SimpleActionClient<control_msgs::GripperCommandAction> GripperControllerClient;
   GripperControllerClient gripper_controller_client_;
 
+  int active_state_;
   int mode_;
   int gripper_state_;
   float max_linear_vel_;
