@@ -1,25 +1,24 @@
-version: "3.5"
-
 services:
+  
   kortex-ros:
-    build:
-      context: .
+    image: husarion/kortex_joystick:noetic
     container_name: kortex-ros
     restart: always
     stdin_open: true
     tty: true
     network_mode: host
     environment:
-      - ROS_MASTER_URI=http://10.15.20.2:11311
-      - ROS_IP=10.15.20.3
       - DISPLAY
+      - ROS_IP=10.15.20.3
+      - ROS_MASTER_URI=http://10.15.20.2:11311
     devices:
       - /dev/input:/dev/input
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./kortex_joystick_demo:/app/ros_ws/src/kortex_joystick_demo
-    command: roslaunch kortex_joystick_demo kortex_joystick_demo.launch robot_ip_address:=10.15.20.4
-#    command: tail -F anythong
+    command: >
+      roslaunch kortex_joystick_demo kortex_joystick_demo.launch
+        robot_ip_address:=10.15.20.4
 
   remote-desktop:
     image: donowak/remote-desktop:lan

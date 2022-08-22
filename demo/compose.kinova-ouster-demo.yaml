@@ -1,30 +1,29 @@
 services:
 
   kortex-ros:
-    build:
-      context: .
+    image: husarion/kortex_joystick:noetic
     container_name: kortex-ros
-    restart: on-failure  
+    restart: on-failure
     stdin_open: true
     tty: true
     network_mode: host
     environment:
-      - ROS_MASTER_URI=http://10.15.20.2:11311
-      - ROS_IP=10.15.20.3
       - DISPLAY
+      - ROS_IP=10.15.20.3
+      - ROS_MASTER_URI=http://10.15.20.2:11311
     devices:
       - /dev/input:/dev/input
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./kortex_joystick_demo:/app/ros_ws/src/kortex_joystick_demo
-    command: roslaunch kortex_joystick_demo kortex_joystick_demo.launch robot_ip_address:=10.15.20.4
-
+    command: >
+      roslaunch kortex_joystick_demo kortex_joystick_demo.launch
+        robot_ip_address:=10.15.20.4
 
   ouster-lidar:
-    build:
-      context: ./../ouster-docker/
+    image: husarion/ouster:melodic
     container_name: ouster-ros
-    restart: on-failure 
+    restart: on-failure
     network_mode: host
     environment:
       - ROS_MASTER_URI=http://10.15.20.2:11311
@@ -35,11 +34,10 @@ services:
         timestamp_mode:=TIME_FROM_PTP_1588 
         lidar_mode:=512x10 metadata:=/ouster_metadata.json
 
-
   remote-desktop:
     image: donowak/remote-desktop:lan
     container_name: vnc-remote-desktop
-    restart: on-failure   
+    restart: on-failure
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     ipc: host
