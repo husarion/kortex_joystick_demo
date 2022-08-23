@@ -1,9 +1,9 @@
 services:
-  
+
   kortex-ros:
     image: husarion/kortex_joystick:noetic
     container_name: kortex-ros
-    restart: always
+    restart: unless-stopped
     stdin_open: true
     tty: true
     network_mode: host
@@ -22,6 +22,8 @@ services:
 
   remote-desktop:
     image: donowak/remote-desktop:lan
+    container_name: vnc-remote-desktop
+    restart: unless-stopped
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     ipc: host
