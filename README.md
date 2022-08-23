@@ -37,7 +37,10 @@ If the output is:
 jstest: No such file or directory
 ```
 
-See `ls /dev/input | grep js` and find your joy number. If it's different, edit `docker-compose.yaml` by adding to command `gamepad_device:=js[joy_number]`  in `kortex-ros` container.
+See `ls /dev/input | grep js` and find your joy number. If it's different, edit your compose file (in the demo folder) by adding at the end of `command` in service called `kortex-ros`:
+```yaml
+gamepad_device:=js[joy_number]
+```
 
 ## Running demo on Panther robot
 
