@@ -161,7 +161,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex_joystick_demo
 
 #### Panther robot with Kinova manipulator installed on the top
 
-1. Clone this repo on your ROSbot:
+1. Clone this repo on your Panther:
 
     ```bash
     git clone https://github.com/husarion/kortex_joystick_demo.git
