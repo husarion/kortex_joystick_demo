@@ -1,7 +1,7 @@
 services:
 
   kortex-ros:
-    image: husarion/kortex_joystick:noetic
+    image: husarion/kortex-joystick:noetic
     container_name: kortex-ros
     restart: unless-stopped
     stdin_open: true
@@ -30,5 +30,5 @@ services:
     ports:
       - 8080:8080
     environment:
-      - VNC_PASSWORD=husarion
       - DISPLAY
+      - VNC_PASSWORD=husarion
