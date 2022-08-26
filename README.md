@@ -9,12 +9,13 @@ This package contains a demo for using the Logitech f710 gamepad to control the 
 Connect the manipulator to your PC using an Ethernet cable.
 
 1. Enable connection
-      On Linux:
-      - Go to: **settings -> network -> wired -> advanced -> IPv4**
-      - Change IPV4 Method to Manual and set:
-      - Address: **192.168.1.11**
-      - Netmask: **255.255.255.0**
-      - Restart network
+   On Linux:
+
+   - Go to: **settings -> network -> wired -> advanced -> IPv4**
+   - Change IPV4 Method to Manual and set:
+   - Address: **192.168.1.11**
+   - Netmask: **255.255.255.0**
+   - Restart network
 
 2. Open Web browser and go to Kinova Kortex WebApp: [192.168.1.10](http://192.168.1.10)
 
@@ -22,7 +23,7 @@ Connect the manipulator to your PC using an Ethernet cable.
 
 4. Change IPv4 address to `10.15.20.4` and IPv4 gateway to: `10.15.20.1`. Save changes
 
-    This will change the default Manipulator IP address from `192.168.1.11` to `10.15.20.4`. To access Kinova Kortex WebApp use a new IP address.
+   This will change the default Manipulator IP address from `192.168.1.11` to `10.15.20.4`. To access Kinova Kortex WebApp use a new IP address.
 
 5. Connect manipulator to RUTX11 router in Panther robot with Ethernet cable.
 
@@ -53,24 +54,24 @@ ROS node is translating the input from the gamepad topic `/joy` to kortex_driver
 
 ### Publish
 
-- `/in/cartesian_velocity` *(kortex_driver/TwistCommand)*
-- `/in/emergency_stop` *(std_msgs/Empty)*
-- `/in/clear_faults` *(std_msgs/Empty)*
+- `/in/cartesian_velocity` _(kortex_driver/TwistCommand)_
+- `/in/emergency_stop` _(std_msgs/Empty)_
+- `/in/clear_faults` _(std_msgs/Empty)_
 
 ### Subscribe
 
-- `/joy` *(sensor_msgs/Joy)*
-- `/base_feedback` *(kortex_driver/BaseCyclic_Feedback)*
+- `/joy` _(sensor_msgs/Joy)_
+- `/base_feedback` _(kortex_driver/BaseCyclic_Feedback)_
 
 ### Parameters
 
-Following parameters change velocity limits for the Kinova manipulator and gripper closed position.
+The following parameters change velocity limits for the Kinova manipulator and gripper closed position.
 
-- `~max_linear_vel` *(float, default: 0.2)*
-- `~min_linear_vel` *(float, default: 0.05)*
-- `~max_angular_vel` *(float, default: 0.5)*
-- `~min_angular_vel` *(float, default: 0.05)*
-- `~gripper_closed_position` *(float, default: 0.8)*
+- `~max_linear_vel` _(float, default: 0.2)_
+- `~min_linear_vel` _(float, default: 0.05)_
+- `~max_angular_vel` _(float, default: 0.5)_
+- `~min_angular_vel` _(float, default: 0.05)_
+- `~gripper_closed_position` _(float, default: 0.8)_
 
 ---
 
@@ -94,7 +95,7 @@ By default, after a successful launch manipulator will be controlled by the game
 |       `LT`       |        close gripper         |
 |       `RT`       |         open gripper         |
 
-To move the manipulator use sticks. By default, cartesian *linear/angular* movement in `X` and `Y` is held by the left stick and *linear/angular* `Z` movement is controlled with the right stick.
+To move the manipulator use sticks. By default, cartesian _linear/angular_ movement in `X` and `Y` is held by the left stick and _linear/angular_ `Z` movement is controlled with the right stick.
 
 ### Robot button mapping
 
@@ -106,7 +107,7 @@ To move the manipulator use sticks. By default, cartesian *linear/angular* movem
 |     `RB`      |        slow driving mode        |
 |     `RT`      |        fast driving mode        |
 
-If neither `RB` nor `RT` is pressed, the robot operates in *regular* driving mode.
+If neither `RB` nor `RT` is pressed, the robot operates in _regular_ driving mode.
 
 ---
 
@@ -114,40 +115,40 @@ If neither `RB` nor `RT` is pressed, the robot operates in *regular* driving mod
 
 1. Access NUC via ssh
 
-    ```bash
-    ssh husarion@10.15.20.3
-    ```
+   ```bash
+   ssh husarion@10.15.20.3
+   ```
 
-    The default password is `husarion`
+   The default password is `husarion`
 
 2. Clone this repo
 
-    ```bash
-    cd ~/husarion_ws/src/
-    git clone https://github.com/husarion/kortex_joystick_demo.git
-    ```
+   ```bash
+   cd ~/husarion_ws/src/
+   git clone https://github.com/husarion/kortex_joystick_demo.git
+   ```
 
 3. Setup a gamepad according to [Setup joy](#setup-joy)
 
 4. Setup virtual desktop
 
-    ```bash
-    cd kortex_joystick_demo/
-    . ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
-    ```
+   ```bash
+   cd kortex_joystick_demo/
+   . ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
+   ```
 
 5. Launch demo
 
-    ```bash
-    ```
+   ```bash
+   roslaunch kortex_joystick_demo kortex_joystick_demo.launch
+       robot_ip_address:=10.15.20.4
+   ```
 
-<!-- More info needed here TBD -->
+After a successful launch, open the Web browser and go to [10.15.20.3:8080](http://10.15.20.3:8080/vnc_auto.html). Enter a password (default `husarion`) and you should see RViz and Panther with the manipulator.
 
-After a successful launch open the Web browser and go to [10.15.20.3:8080](http://10.15.20.3:8080/vnc_auto.html). Enter a password (default `husarion`) and you should see RViz and Panther with the manipulator.
+---
 
-<!-- --- -->
-
-<!-- ## Docker image
+## Docker image
 
 [![Build/Publish Docker Image](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml/badge.svg)](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml)
 
@@ -155,7 +156,7 @@ After a successful launch open the Web browser and go to [10.15.20.3:8080](http:
 | ---------- | ---------------------------- |
 | `noetic`   | `linux/amd64`, `linux/arm64` |
 
-Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex_joystick_demo/tags)
+Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo/tags)
 
 ### Demo
 
@@ -163,18 +164,18 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex_joystick_demo
 
 1. Clone this repo on your Panther:
 
-    ```bash
-    git clone https://github.com/husarion/kortex_joystick_demo.git
-    cd kortex_joystick_demo/
-    ```
+   ```bash
+   git clone https://github.com/husarion/kortex_joystick_demo.git
+   cd kortex_joystick_demo/
+   ```
 
 2. Launch on Panther
 
-    Go to the `kortex_joystick_demo/demo` folder and run:
+   Go to the `kortex_joystick_demo/demo` folder and run:
 
-    ```bash
-    cd joy2twist/demo
-    docker compose -f compose.panther-kinova.yaml up
-    ```
+   ```bash
+   cd kortex_joystick_demo/demo
+   docker compose -f compose.panther-kinova.yaml up
+   ```
 
-3. Use Logitech gamepad to control either Panther or Kinova [Instruction](#controlling-kinova-manipulator-and-mobile-robot). -->
+3. Use Logitech gamepad to control either Panther or Kinova [Instruction](#controlling-kinova-manipulator-and-mobile-robot).
