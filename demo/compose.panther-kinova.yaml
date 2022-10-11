@@ -4,7 +4,6 @@ services:
     image: husarion/kortex-joystick:noetic
     container_name: kortex-ros
     restart: unless-stopped
-    stdin_open: true
     tty: true
     network_mode: host
     environment:

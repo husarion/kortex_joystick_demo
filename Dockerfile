@@ -5,7 +5,6 @@ SHELL ["/bin/bash", "-c"]
 
 # Update Ubuntu Software repository
 RUN apt update && \
-    apt upgrade -y && \
     apt install -y \
         git \
         python3-dev \

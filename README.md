@@ -97,6 +97,8 @@ By default, after a successful launch manipulator will be controlled by the game
 
 To move the manipulator use sticks. By default, cartesian _linear/angular_ movement in `X` and `Y` is held by the left stick and _linear/angular_ `Z` movement is controlled with the right stick.
 
+![buttons](docs/gamepad_buttons.png)
+
 ### Robot button mapping
 
 |    Button     |            Function             |
@@ -134,7 +136,7 @@ If neither `RB` nor `RT` is pressed, the robot operates in _regular_ driving mod
 
    ```bash
    cd kortex_joystick_demo/
-   . ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
+   source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
    ```
 
 5. Launch demo
@@ -166,14 +168,14 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo
 
    ```bash
    git clone https://github.com/husarion/kortex_joystick_demo.git
-   cd kortex_joystick_demo/
    ```
 
 2. Launch on Panther
 
-   Go to the `kortex_joystick_demo/demo` folder and run:
+   Setup virtual desktop and run demo:
 
    ```bash
+   source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
    cd kortex_joystick_demo/demo
    docker compose -f compose.panther-kinova.yaml up
    ```

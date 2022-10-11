@@ -38,5 +38,3 @@ jobs:
           platforms: linux/arm64, linux/amd64
           push: true
           tags: husarion/kortex-joystick:noetic
-          cache-from: type=registry,ref=husarion/kortex-joystick:noetic
-          cache-to: type=inline
