@@ -3,8 +3,7 @@ services:
   kortex-ros:
     image: husarion/kortex-joystick:noetic
     container_name: kortex-ros
-    restart: unless-stopped
-    tty: true
+    restart: on-failure
     network_mode: host
     environment:
       - DISPLAY
@@ -21,7 +20,7 @@ services:
   remote-desktop:
     image: donowak/remote-desktop:lan
     container_name: vnc-remote-desktop
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     ipc: host

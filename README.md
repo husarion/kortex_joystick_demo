@@ -175,9 +175,9 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo
    Setup virtual desktop and run demo:
 
    ```bash
+   cd kortex_joystick_demo/
    source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
-   cd kortex_joystick_demo/demo
-   docker compose -f compose.panther-kinova.yaml up
+   docker compose -f demo/compose.panther-kinova.yaml up
    ```
 
 3. Use Logitech gamepad to control either Panther or Kinova [Instruction](#controlling-kinova-manipulator-and-mobile-robot).
