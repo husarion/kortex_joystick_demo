@@ -4,37 +4,38 @@ FROM osrf/ros:noetic-desktop-full
 SHELL ["/bin/bash", "-c"]
 
 # Update Ubuntu Software repository
-RUN apt update \
-    && apt upgrade -y \
-    && apt install -y git \
-    python3-dev \
-    python3-pip
+RUN apt update && \
+    apt install -y \
+        git \
+        python3-dev \
+        python3-pip
 
-RUN pip3 install conan rosdep\
-    && conan config set general.revisions_enabled=1 \
-    && conan profile new default --detect > /dev/null \
-    && conan profile update settings.compiler.libcxx=libstdc++11 default 
+RUN pip3 install \
+        conan \
+        rosdep \
+        vcstool && \
+    conan config set general.revisions_enabled=1 && \
+    conan profile new default --detect > /dev/null && \
+    conan profile update settings.compiler.libcxx=libstdc++11 default 
 
-WORKDIR /app
+WORKDIR /ros_ws
 
 # Create and initialise ROS workspace
-RUN mkdir -p ros_ws/src
-COPY ./kortex_joystick_demo ros_ws/src/kortex_joystick_demo
+COPY ./kortex_joystick_demo src/kortex_joystick_demo
+COPY ./demo.repos /
 
-RUN cd ros_ws \
-    && mkdir build \
-    && source /opt/ros/$ROS_DISTRO/setup.bash \
-    && git clone https://github.com/Kinovarobotics/ros_kortex.git src/ros_kortex \
-    && git clone https://github.com/husarion/joy2twist.git src/joy2twist \
-    && git clone https://github.com/husarion/panther_description.git src/panther_description \
-    && rosdep install --from-paths src --ignore-src -y \
-    && catkin_make -DCATKIN_ENABLE_TESTING=0 -DCMAKE_BUILD_TYPE=Release
+RUN vcs import src < /demo.repos && \
+    mv src/ros_kortex/kortex_driver src/kortex_driver && \
+    mv src/ros_kortex/kortex_description src/kortex_description && \
+    mv src/ros_kortex/kortex_move_it_config src/kortex_move_it_config && \
+    rm -rf src/ros_kortex
 
-# Clear 
-RUN apt clean \
-    && rm -rf /var/lib/apt/lists/* 
+RUN mkdir build && \
+    source /opt/ros/$ROS_DISTRO/setup.bash && \
+    rosdep install --from-paths src --ignore-src -y && \
+    catkin_make -DCATKIN_ENABLE_TESTING=0 -DCMAKE_BUILD_TYPE=Release && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY ./ros_entrypoint.sh / 
-RUN chmod +x /ros_entrypoint.sh
+COPY ./ros_entrypoint.sh /
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
