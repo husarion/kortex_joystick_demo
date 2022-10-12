@@ -18,23 +18,19 @@ RUN pip3 install \
     conan profile new default --detect > /dev/null && \
     conan profile update settings.compiler.libcxx=libstdc++11 default 
 
-WORKDIR /app
+WORKDIR /ros_ws
 
 # Create and initialise ROS workspace
-RUN mkdir -p ros_ws/src
-
-COPY ./kortex_joystick_demo ros_ws/src/kortex_joystick_demo
+COPY ./kortex_joystick_demo src/kortex_joystick_demo
 COPY ./demo.repos /
 
-RUN cd ros_ws && \
-    vcs import src < /demo.repos && \
+RUN vcs import src < /demo.repos && \
     mv src/ros_kortex/kortex_driver src/kortex_driver && \
     mv src/ros_kortex/kortex_description src/kortex_description && \
     mv src/ros_kortex/kortex_move_it_config src/kortex_move_it_config && \
     rm -rf src/ros_kortex
 
-RUN cd ros_ws && \
-    mkdir build && \
+RUN mkdir build && \
     source /opt/ros/$ROS_DISTRO/setup.bash && \
     rosdep install --from-paths src --ignore-src -y && \
     catkin_make -DCATKIN_ENABLE_TESTING=0 -DCMAKE_BUILD_TYPE=Release && \
