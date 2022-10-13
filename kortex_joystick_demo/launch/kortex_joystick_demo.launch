@@ -40,7 +40,5 @@
             <remap from="gripper_controller/gripper_cmd" to="$(arg robot_name)_$(arg gripper_name)_gripper_controller/gripper_cmd" />
         </node>
     </group>
-
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find kortex_joystick_demo)/config/kinova_rviz.rviz" output="screen" />
-
+    
 </launch>

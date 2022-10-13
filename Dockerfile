@@ -1,4 +1,4 @@
-FROM osrf/ros:noetic-desktop-full
+FROM ros:noetic-ros-core
 
 # Use bash instead of sh
 SHELL ["/bin/bash", "-c"]
