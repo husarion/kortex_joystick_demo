@@ -8,8 +8,7 @@ RUN apt update && \
     apt install -y \
         git \
         python3-dev \
-        python3-pip \
-        moveit_simple_controller_manager
+        python3-pip
 
 RUN pip3 install \
         conan \
