@@ -36,6 +36,19 @@ target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
 )
 
+add_executable(protection_zones_node
+  src/protection_zones_main.cpp
+  src/protection_zones_node.cpp
+)
+
+add_dependencies(protection_zones_node
+  ${catkin_EXPORTED_TARGETS}
+)
+
+target_link_libraries(protection_zones_node
+  ${catkin_LIBRARIES}
+)
+
 install(TARGETS ${PROJECT_NAME}_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
