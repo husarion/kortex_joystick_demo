@@ -9,7 +9,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./config/kinova_config.rviz:/root/.rviz/default.rviz
-      - ./rviz_entrypoint.sh:/ros_entrypoint.sh
+      - ./../ros_entrypoint.sh:/ros_entrypoint.sh
       - description-volume:/ros_ws
     environment:
       - DISPLAY

@@ -20,6 +20,7 @@
         <arg name="ip_address" value="$(arg robot_ip_address)"/>
         <arg name="gripper" value="$(arg gripper_name)" />
         <arg name="prefix" value="$(arg robot_name)_" />
+        <arg name="start_moveit" value="false" />
         <arg name="start_rviz" value="false" />
     </include>
 

@@ -2,6 +2,7 @@ services:
 
   kortex-ros:
     image: husarion/kortex-joystick:noetic
+    container_name: kortex-ros
     restart: on-failure
     network_mode: host
     environment:
