@@ -1,4 +1,4 @@
-FROM ros:noetic-ros-core
+FROM osrf/ros:noetic-desktop
 
 # Use bash instead of sh
 SHELL ["/bin/bash", "-c"]
@@ -30,8 +30,7 @@ RUN vcs import src < /demo.repos && \
     mv src/ros_kortex/kortex_move_it_config src/kortex_move_it_config && \
     rm -rf src/ros_kortex
 
-RUN rosdep init && \
-    rosdep update --rosdistro=$ROS_DISTRO && \
+RUN rosdep update --rosdistro=$ROS_DISTRO && \
     rosdep install --from-paths src --ignore-src -y && \
     source /opt/ros/$ROS_DISTRO/setup.bash && \
     catkin_make -DCATKIN_ENABLE_TESTING=0 -DCMAKE_BUILD_TYPE=Release && \
