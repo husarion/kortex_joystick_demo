@@ -10,5 +10,5 @@ services:
     ports:
       - 8080:8080
     environment:
-      - DISPLAY
+      - DISPLAY=${DISPLAY:?Source of setup_virtual_desktop.sh required!}
       - VNC_PASSWORD=husarion
