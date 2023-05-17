@@ -3,12 +3,11 @@
     <arg name="robot_name" default="kinova_gen3" />
     <arg name="robot_ip_address" default="192.168.1.10"/>
     <arg name="gripper_name" default="robotiq_2f_85" />
-    <arg name="gamepad_name" default="logitech_f710" />
-    <arg name="gamepad_device" default="js0" />
+    <arg name="joy_topic" default="/joy" />
     <arg name="test" default="false" />
 
     <!-- Load panther robot -->
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find panther_description)/../examples/ouster_os1_32/panther.urdf.xacro" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find kortex_joystick_demo)/urdf/panther.urdf.xacro" />
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(arg test)" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
@@ -24,20 +23,10 @@
         <arg name="start_rviz" value="false" />
     </include>
 
-    <node name="$(arg gamepad_name)_joy" pkg="joy" type="joy_node" ns="$(arg gamepad_name)">
-        <param name="dev" value="/dev/input/$(arg gamepad_device)" />
-        <param name="autorepeat_rate" type="double" value="10" />
-    </node>
-
-    <node name="joy2twist_node" pkg="joy2twist" type="joy2twist_node" output="screen">
-        <rosparam file="$(find kortex_joystick_demo)/config/joy2twist.yaml" />
-        <remap from="joy" to="/$(arg gamepad_name)/joy" />
-    </node>
-
     <group ns="$(arg robot_name)">
         <node name="kortex_joystick" pkg="kortex_joystick_demo" type="kortex_joystick_demo_node" output="screen">
             <rosparam file="$(find kortex_joystick_demo)/config/kortex_joystick_config.yaml" />
-            <remap from="joy" to="/$(arg gamepad_name)/joy" />
+            <remap from="joy" to="$(arg joy_topic)" />
             <remap from="gripper_controller/gripper_cmd" to="$(arg robot_name)_$(arg gripper_name)_gripper_controller/gripper_cmd" />
         </node>
     </group>
