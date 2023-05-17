@@ -24,7 +24,7 @@ WORKDIR /ros_ws
 COPY ./demo.repos /
 
 # import required packages
-RUN vcs import src < /demo.repos && \
+RUN mkdir src && vcs import src < /demo.repos &&\
     mv src/panther_ros/panther_description src/panther_description && \
     rm -rf src/panther_ros && \
     mv src/ros_kortex/kortex_driver src/kortex_driver && \
