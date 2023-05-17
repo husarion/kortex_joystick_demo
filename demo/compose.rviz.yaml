@@ -12,7 +12,7 @@ services:
       - ./../ros_entrypoint.sh:/ros_entrypoint.sh
       - description-volume:/ros_ws
     environment:
-      - DISPLAY
+      - DISPLAY=${DISPLAY:?Source of setup_virtual_desktop.sh required!}
       - LIBGL_ALWAYS_SOFTWARE=1
       - ROS_IP=10.15.20.3
       - ROS_MASTER_URI=http://10.15.20.2:11311

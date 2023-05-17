@@ -1,12 +1,8 @@
 #! /bin/bash
 
-# init virtual desktop
+# Init virtual desktop
 vncserver
 
-# make desktop accessible
+# Make desktop accessible
 export DISPLAY=:1
 xhost local:root
-
-
-
-
