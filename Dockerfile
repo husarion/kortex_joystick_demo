@@ -8,8 +8,13 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         build-essential \
         git \
+        gstreamer1.0-libav \
+        gstreamer1.0-plugins-good \
+        gstreamer1.0-tools \
+        libgstreamer-plugins-good1.0-dev \
         python3-dev \
-        python3-pip && \
+        python3-pip \
+        ros-$ROS_DISTRO-rgbd-launch && \
     pip3 install \
         conan==1.59 \
         rosdep \
