@@ -3,11 +3,11 @@ repositories:
     type: git
     url: https://github.com/Kinovarobotics/ros_kortex.git
     version: 7ba75b3e6293fe4af9fe64f35e877d1ff2613360
-  panther_description:
+  panther_ros:
     type: git
-    url: https://github.com/husarion/panther_description.git
-    version: 9927106ecf4ad79abf0a595189829c22a1dc5873
-  joy2twist:
+    url: https://github.com/husarion/panther_ros.git
+    version: 1.0.0
+  ros_components_description:
     type: git
-    url: https://github.com/husarion/joy2twist.git
-    version: f16f50da79d8574285f027146b231a2d0ba7936c
+    url: https://github.com/husarion/ros_components_description.git
+    version: dc91fbe9708ad67ea9fe2e8e58f9f9d9acc4fed9

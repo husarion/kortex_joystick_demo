@@ -29,23 +29,6 @@ Connect the manipulator to your PC using an Ethernet cable.
 
 For more info about Kinova Kortex Gen3 refer to [gen3-robots](https://www.kinovarobotics.com/product/gen3-robots)
 
-## Setup joy
-
-Connect joy via nano USB receiver to NUC and make sure it is in **DirectInput Mode** (switch in front of the pad with letters **D** and **X**, select **D**).
-
-To test if joy works, use `jstest /dev/input/js0`.
-If the output is:
-
-```bash
-jstest: No such file or directory
-```
-
-See `ls /dev/input | grep js` and find your joy number. If it's different, edit your compose file (in the demo folder) by adding at the end of `command` in service called `kortex-ros`:
-
-```yaml
-gamepad_device:=js[joy_number]
-```
-
 ---
 
 ## ROS node API
@@ -77,7 +60,7 @@ The following parameters change velocity limits for the Kinova manipulator and g
 
 ## Controlling Kinova manipulator and mobile robot
 
-By default, after a successful launch manipulator will be controlled by the gamepad. To start driving the robot and disable the manipulator press the **LB button** (disable movement). To switch back to using the manipulator press the **A button** (enable movement).
+By default, after a successful launch, the manipulator will be controlled by the gamepad. It is assumed that the joy interface has already been launched. In case of any issues, please follow the instructions under [joy2twist](https://github.com/husarion/joy2twist/tree/ros1) To start driving the robot and disable the manipulator press the **LB button** (disable movement). To switch back to using the manipulator press the **A button** (enable movement).
 
 ### Manipulator button mapping
 
@@ -108,6 +91,9 @@ To move the manipulator use sticks. By default, cartesian _linear/angular_ movem
 |     `LB`      |         enable driving          |
 |     `RB`      |        slow driving mode        |
 |     `RT`      |        fast driving mode        |
+|      `A`      |          Reset E-stop           |
+|      `B`      |         Trigger E-stop          |
+|     `LT`      |       Enable E-stop reset       |
 
 If neither `RB` nor `RT` is pressed, the robot operates in _regular_ driving mode.
 
