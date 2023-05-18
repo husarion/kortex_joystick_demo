@@ -4,10 +4,10 @@ FROM ros:noetic-ros-core
 SHELL ["/bin/bash", "-c"]
 
 # Update Ubuntu Software repository
-RUN apt update && \
-    apt install --no-install-recommends -y \
-        git \
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
         build-essential \
+        git \
         python3-dev \
         python3-pip && \
     pip3 install \
