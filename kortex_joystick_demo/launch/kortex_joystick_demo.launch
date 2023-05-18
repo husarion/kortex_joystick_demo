@@ -23,6 +23,10 @@
         <arg name="start_rviz" value="false" />
     </include>
 
+    <include file="$(find kinova_vision)/launch/kinova_vision.launch">
+        <arg name="device" value="$(arg robot_ip_address)"/>
+    </include>
+
     <group ns="$(arg robot_name)">
         <node name="kortex_joystick" pkg="kortex_joystick_demo" type="kortex_joystick_demo_node" output="screen">
             <rosparam file="$(find kortex_joystick_demo)/config/kortex_joystick_config.yaml" />
