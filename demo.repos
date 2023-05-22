@@ -6,7 +6,7 @@ repositories:
   ros_kortex_vision:
     type: git
     url: https://github.com/Kinovarobotics/ros_kortex_vision.git
-    version: 1.1.4
+    version: cd49bab1aa887b4791ac4d512ef181fd39361426
   panther_ros:
     type: git
     url: https://github.com/husarion/panther_ros.git
