@@ -1,7 +1,7 @@
 services:
 
   realsense-camera:
-    image: husarion/realsense:noetic
+    image: husarion/realsense:noetic--20230522
     container_name: realsense-camera
     restart: on-failure
     network_mode: host
