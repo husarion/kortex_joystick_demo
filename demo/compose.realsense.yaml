@@ -14,4 +14,4 @@ services:
       - 'c 81:* rmw'
       - 'c 189:* rmw'
     command: >
-      roslaunch realsense2_camera rs_rgbd.launch
+      roslaunch realsense2_camera rs_rgbd.launch camera:=rs_camera tf_prefix:=rs_camera_front

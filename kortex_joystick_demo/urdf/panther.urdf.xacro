@@ -30,6 +30,6 @@
     simulation_engine="$(arg simulation_engine)" />
 
   <xacro:ouster.ouster_os1_32 frame_id="os_sensor" parent_link="cover_link" xyz="0.185 0.0 0.0" rpy="0.0 0.0 0.0" />
-  <xacro:realsense.intel_realsense_d435 frame_id="rs_sensor" parent_link="front_lights" xyz="0.0 -0.04 0.095" rpy="0.0 0.0 0.0" />
+  <xacro:realsense.intel_realsense_d435 frame_id="rs_camera_front_link" parent_link="front_lights" xyz="0.0 -0.04 0.095" rpy="0.0 0.0 0.0" />
 
 </robot>
