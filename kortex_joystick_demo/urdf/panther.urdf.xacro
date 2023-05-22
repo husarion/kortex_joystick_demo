@@ -15,6 +15,7 @@
 
   <xacro:include filename="$(find panther_description)/urdf/panther_macro.urdf.xacro" ns="husarion" />
   <xacro:include filename="$(find ros_components_description)/urdf/ouster_os1_32.urdf.xacro" ns="ouster" />
+  <xacro:include filename="$(find ros_components_description)/urdf/intel_realsense_d435.urdf.xacro" ns="realsense" />
 
   <xacro:husarion.panther_robot
     use_sim="$(arg use_sim)"
@@ -29,4 +30,6 @@
     simulation_engine="$(arg simulation_engine)" />
 
   <xacro:ouster.ouster_os1_32 frame_id="os_sensor" parent_link="cover_link" xyz="0.14 0.0 0.02" rpy="0.0 0.0 0.0" />
+  <xacro:realsense.intel_realsense_d435 parent_link="front_light_link" name="rs_camera" xyz="-0.04 0.0 0.095" rpy="0.0 0.0 0.0" />
+
 </robot>

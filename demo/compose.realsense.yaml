@@ -1,0 +1,19 @@
+services:
+
+  realsense-camera:
+    image: husarion/realsense:noetic--20230522
+    container_name: realsense-camera
+    restart: on-failure
+    network_mode: host
+    environment:
+      - ROS_IP=10.15.20.3
+      - ROS_MASTER_URI=http://10.15.20.2:11311
+    volumes:
+      - /dev:/dev
+    device_cgroup_rules:
+      - 'c 81:* rmw'
+      - 'c 189:* rmw'
+    command: >
+      roslaunch realsense2_camera rs_rgbd.launch 
+        camera:=rs_camera 
+        tf_prefix:=rs_camera
