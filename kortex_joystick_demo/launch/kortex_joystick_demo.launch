@@ -25,6 +25,9 @@
 
     <include file="$(find kinova_vision)/launch/kinova_vision.launch">
         <arg name="device" value="$(arg robot_ip_address)"/>
+        <arg name="camera_link_frame_id" value="kinova_gen3_camera_link"/>
+        <arg name="color_frame_id" value="kinova_gen3_camera_color_frame"/>
+        <arg name="depth_frame_id" value="kinova_gen3_camera_depth_frame"/>
     </include>
 
     <group ns="$(arg robot_name)">
