@@ -28,5 +28,5 @@
     wheel_config_path="$(arg wheel_config_path)"
     simulation_engine="$(arg simulation_engine)" />
 
-  <xacro:ouster.ouster_os1_32 frame_id="os_sensor" parent_link="cover_link" xyz="0.185 0.0 0.0" rpy="0.0 0.0 0.0" />
+  <xacro:ouster.ouster_os1_32 frame_id="os_sensor" parent_link="cover_link" xyz="0.140 0.0 0.02" rpy="0.0 0.0 0.0" />
 </robot>
