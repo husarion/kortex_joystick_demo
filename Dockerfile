@@ -13,8 +13,7 @@ RUN apt-get update && \
         gstreamer1.0-tools \
         libgstreamer-plugins-good1.0-dev \
         python3-dev \
-        python3-pip \
-        ros-$ROS_DISTRO-rgbd-launch && \
+        python3-pip && \
     pip3 install \
         conan==1.59 \
         rosdep \

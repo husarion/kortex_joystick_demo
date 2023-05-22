@@ -12,7 +12,7 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
     <!-- Create transfor between panther and kinova manipulator -->
-    <node pkg="tf" type="static_transform_publisher" name="panther_kinova_broadcaster" args="-0.135 0.1725 0.354 3.14 0 0 base_link $(arg robot_name)_base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="panther_kinova_broadcaster" args="-0.105 0.11 0.031 3.14 0 0 cover_link $(arg robot_name)_base_link 100" />
 
     <include file="$(find kortex_driver)/launch/kortex_driver.launch">
         <arg name="robot_name" value="$(arg robot_name)" />
@@ -25,6 +25,9 @@
 
     <include file="$(find kinova_vision)/launch/kinova_vision.launch">
         <arg name="device" value="$(arg robot_ip_address)"/>
+        <arg name="camera_link_frame_id" value="${arg robot_name}_camera_link"/>
+        <arg name="color_frame_id" value="${arg robot_name}_camera_color_frame"/>
+        <arg name="depth_frame_id" value="${arg robot_name}_camera_depth_frame"/>
     </include>
 
     <group ns="$(arg robot_name)">
