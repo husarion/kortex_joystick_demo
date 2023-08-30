@@ -20,7 +20,6 @@ services:
     command: >
       roslaunch kortex_joystick_demo kortex_joystick_demo.launch
         robot_ip_address:=10.15.20.4
-    # command: bash
 
   ouster-lidar:
     image: husarion/ouster:melodic
