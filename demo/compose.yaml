@@ -20,6 +20,7 @@ services:
     command: >
       roslaunch kortex_joystick_demo kortex_joystick_demo.launch
         robot_ip_address:=10.15.20.4
+    # command: bash
 
   ouster-lidar:
     image: husarion/ouster:melodic
@@ -50,6 +51,8 @@ services:
   rviz:
     image: husarion/rviz:noetic
     container_name: rviz
+    depends_on: 
+      - kortex-ros
     <<: *common-config
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
