@@ -158,10 +158,11 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo
 
 2. Launch on Panther
 
-   Run demo:
+   Setup display and run the demo:
 
    ```bash
    cd kortex_joystick_demo/demo
+   sudo enable-dummy.sh
    xhost local:docker
    docker compose up
    ```
