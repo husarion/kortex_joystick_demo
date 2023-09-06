@@ -1,0 +1,95 @@
+x-common-config:
+  &common-config
+  network_mode: host
+  restart: on-failure
+  tty: true
+  environment:
+    - ROS_IP=10.15.20.3
+    - ROS_MASTER_URI=http://10.15.20.2:11311
+
+services:
+
+  kortex-ros:
+    image: husarion/kortex-joystick:noetic
+    container_name: kortex-ros
+    <<: *common-config
+    devices:
+      - /dev/input:/dev/input
+    volumes:
+      - description-volume:/ros_ws
+    command: >
+      roslaunch kortex_joystick_demo kortex_joystick_demo.launch
+        robot_ip_address:=10.15.20.4
+
+  ouster-lidar:
+    image: husarion/ouster:melodic
+    container_name: ouster-ros
+    <<: *common-config
+    command: >
+      roslaunch ouster_ros sensor.launch
+        timestamp_mode:=TIME_FROM_ROS_TIME
+        metadata:=/ouster_metadata.json
+        viz:=false
+        sensor_hostname:=10.15.20.10
+        lidar_mode:=1024x20
+
+  realsense-camera:
+    image: husarion/realsense:noetic--20230522
+    container_name: realsense-camera
+    <<: *common-config
+    volumes:
+      - /dev:/dev
+    device_cgroup_rules:
+      - 'c 81:* rmw'
+      - 'c 189:* rmw'
+    command: >
+      roslaunch realsense2_camera rs_rgbd.launch 
+        camera:=rs_camera 
+        tf_prefix:=rs_camera
+
+  rviz:
+    image: husarion/rviz:noetic
+    container_name: rviz
+    depends_on: 
+      - kortex-ros
+    <<: *common-config
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./config/kinova_config.rviz:/root/.rviz/default.rviz
+      - ./../ros_entrypoint.sh:/ros_entrypoint.sh
+      - description-volume:/ros_ws
+    environment:
+      - DISPLAY
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - ROS_IP=10.15.20.3
+      - ROS_MASTER_URI=http://10.15.20.2:11311
+
+  vnc-server:
+    image: husarion/webvnc-server:0.5.0
+    container_name: vnc-server
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    ipc: host
+    environment:
+      - DISPLAY
+      - PASSWORD=husarion
+      - VNC_SERVER_PORT=5901
+
+  vnc-client:
+    image: husarion/webvnc-client:0.5.0
+    container_name: vnc-client
+    ports:
+      - 8080:8080
+
+  websockify:
+    image: husarion/websockify:0.5.0
+    container_name: websockify
+    ports:
+      - 5902:5902
+    environment:
+      - VNC_SERVER_HOST=vnc-server
+      - VNC_SERVER_PORT=5901
+      - WEBSOCKIFY_PORT=5902
+  
+volumes:
+  description-volume:
