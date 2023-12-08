@@ -6,8 +6,8 @@ services:
     restart: on-failure
     network_mode: host
     environment:
-      - ROS_IP=10.15.20.3
-      - ROS_MASTER_URI=http://10.15.20.2:11311
+      - ROS_IP=${ROS_IP:-10.15.20.3}
+      - ROS_MASTER_URI=${ROS_MASTER_URI:-http://10.15.20.2:11311}
     devices:
       - /dev/input:/dev/input
     volumes:
