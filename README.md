@@ -196,7 +196,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo
    git clone https://github.com/husarion/kortex_joystick_demo.git
    ```
 
-2. Setup the demo (for this step you need to know your computer IP in Panthers network)
+2. Setup the demo (for this step you need to know your computer IP in Panthers network, you can check it using the `ifconfig` command)
 
    ```bash
    export ROS_IP=<your_robot_ip>
