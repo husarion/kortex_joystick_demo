@@ -99,50 +99,15 @@ If neither `RB` nor `RT` is pressed, the robot operates in _regular_ driving mod
 
 ---
 
-## Running on Panther robot
-
-1. Access NUC via ssh
-
-   ```bash
-   ssh husarion@10.15.20.3
-   ```
-
-   The default password is `husarion`
-
-2. Clone this repo
-
-   ```bash
-   cd ~/husarion_ws/src/
-   git clone https://github.com/husarion/kortex_joystick_demo.git
-   ```
-
-3. Setup virtual desktop
-
-   ```bash
-   cd kortex_joystick_demo/
-   source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
-   ```
-
-5. Launch demo
-
-   ```bash
-   roslaunch kortex_joystick_demo kortex_joystick_demo.launch
-       robot_ip_address:=10.15.20.4
-   ```
-
-After a successful launch, open the Web browser and go to [10.15.20.3:8080](http://10.15.20.3:8080/vnc_auto.html). Enter a password (default `husarion`) and you should see RViz and Panther with the manipulator.
-
----
-
 ## Docker image
 
 [![Build/Publish Docker Image](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml/badge.svg)](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml)
 
-| ROS distro | Supported architectures      |
-| ---------- | ---------------------------- |
-| `noetic`   | `linux/amd64`, `linux/arm64` |
+| ROS distro | Supported architectures |
+| :--------: | :---------------------: |
+|  `noetic`  |      `linux/amd64`      |
 
-Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo/tags)
+Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags)
 
 ### Demo
 
@@ -177,7 +142,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo
 
    ```bash
    cd kortex_joystick_demo/demo
-   source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
+   source ./setup_virtual_desktop.sh
    docker compose \
       -f compose.ouster.yaml \
       -f compose.kinova.yaml \
