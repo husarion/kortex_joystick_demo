@@ -19,7 +19,7 @@
         <arg name="robot_name" value="$(arg robot_name)" />
         <arg name="ip_address" value="$(arg robot_ip_address)" />
         <arg name="arm" value="$(arg arm)" />
-        <arg name="gripper" value="$(arg gripper_name)" />
+        <arg name="gripper" value="$(arg gripper_name)" if="$(eval arg('arm') == 'gen3')" />
         <arg name="prefix" value="$(arg robot_name)_" />
         <arg name="start_moveit" value="false" />
         <arg name="start_rviz" value="false" />
