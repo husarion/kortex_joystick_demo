@@ -29,9 +29,6 @@ on:
     types:
       - closed
       - opened
-  push:
-    branches:
-      - pc-demo
 
 jobs:
   build:
