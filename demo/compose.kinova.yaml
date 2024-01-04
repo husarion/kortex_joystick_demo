@@ -1,20 +1,24 @@
+x-net-config:
+  &net-config
+  network_mode: host
+  env_file: net.env
+
 services:
 
   kortex-ros:
-    image: husarion/kortex-joystick:nightly
+    image: kinova_test
     container_name: kortex-ros
     restart: on-failure
-    network_mode: host
-    environment:
-      - ROS_IP=${ROS_IP:-10.15.20.3}
-      - ROS_MASTER_URI=${ROS_MASTER_URI:-http://10.15.20.2:11311}
+    <<: *net-config
     devices:
       - /dev/input:/dev/input
     volumes:
       - description-volume:/ros_ws
+      - ../kortex_joystick_demo/launch:/ros_ws/src/kortex_joystick_demo/launch
     command: >
       roslaunch kortex_joystick_demo kortex_joystick_demo.launch
-        robot_ip_address:=10.15.20.4
+        robot_ip_address:=${KINOVA_IP_ADDRESS}
+        arm:=${KINOVA_ARM_MODEL}
 
 volumes:
   description-volume:

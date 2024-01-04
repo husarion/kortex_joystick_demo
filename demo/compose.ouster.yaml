@@ -1,17 +1,19 @@
+x-net-config:
+  &net-config
+  network_mode: host
+  env_file: net.env
+
 services:
 
   ouster-lidar:
     image: husarion/ouster:melodic
     container_name: ouster-ros
     restart: on-failure
-    network_mode: host
-    environment:
-      - ROS_IP=${ROS_IP:-10.15.20.3}
-      - ROS_MASTER_URI=${ROS_MASTER_URI:-http://10.15.20.2:11311}
+    <<: *net-config
     command: >
       roslaunch ouster_ros sensor.launch
         timestamp_mode:=TIME_FROM_ROS_TIME
         metadata:=/ouster_metadata.json
         viz:=false
-        sensor_hostname:=10.15.20.10
-        lidar_mode:=1024x20
+        sensor_hostname:=${OUSTER_IP_ADDERSS}
+        lidar_mode:=${OUSTER_LIDAR_MODE}

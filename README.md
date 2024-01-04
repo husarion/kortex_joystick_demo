@@ -127,14 +127,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
    git clone https://github.com/husarion/kortex_joystick_demo.git
    ```
 
-3. If you are using Kinova Gen3 Lite, edit [compose.kinova.yaml](./demo/compose.kinova.yaml) file and add `arm:=gen3_lite` launch parameter to the command
-
-   ```yaml
-   command: >
-      roslaunch kortex_joystick_demo kortex_joystick_demo.launch
-        robot_ip_address:=10.15.20.4
-        arm:=gen3_lite
-   ```
+3. If you are using Kinova Gen3 Lite, edit [.env](./demo/.env) file and change `KINOVA_ARM_MODEL` to `gen3_lite`.
 
 4. Launch the demo
 
@@ -161,22 +154,9 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
    git clone https://github.com/husarion/kortex_joystick_demo.git
    ```
 
-2. Setup the demo (for this step you need to know your computer IP in Panthers network, you can check it using the `ifconfig` command)
+2. Setup network (for this step you need to know your computer IP in Panthers network, you can check it using the `ifconfig` command). Then, edit [net.env](./demo/net.env) file and change `ROS_IP`. Example IP address can be: `10.15.20.147`.
 
-   ```bash
-   export ROS_IP=<your_robot_ip>
-   # for example
-   export ROS_IP=10.15.20.147
-   ```
-
-3. If you are using Kinova Gen3 Lite, edit [compose.kinova.yaml](./demo/compose.kinova.yaml) file and add `arm:=gen3_lite` launch parameter to the command
-
-   ```yaml
-   command: >
-      roslaunch kortex_joystick_demo kortex_joystick_demo.launch
-        robot_ip_address:=10.15.20.4
-        arm:=gen3_lite
-   ```
+3. If you are using Kinova Gen3 Lite, edit [.env](./demo/.env) file and change `KINOVA_ARM_MODEL` to `gen3_lite`.
 
 4. Launch the demo
 
