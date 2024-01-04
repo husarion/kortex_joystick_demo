@@ -111,7 +111,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
 
 ### Demo
 
-#### Running on Panthers User Computer
+#### Running on Panther's User Computer
 
 1. Access User Computer via ssh
 
