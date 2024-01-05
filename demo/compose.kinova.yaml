@@ -6,7 +6,7 @@ x-net-config:
 services:
 
   kortex-ros:
-    image: kinova_test
+    image: husarion/kortex-joystick:noetic-0.0.1-20240105
     container_name: kortex-ros
     restart: on-failure
     <<: *net-config
