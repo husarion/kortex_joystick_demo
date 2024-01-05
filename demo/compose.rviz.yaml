@@ -1,21 +1,26 @@
+x-net-config:
+  &net-config
+  network_mode: host
+  env_file: net.env
+
+x-cpu-config:
+  &cpu-config
+  environment:
+    - DISPLAY=${DISPLAY:?err}
+    - LIBGL_ALWAYS_SOFTWARE=1
+
 services:
 
   rviz:
     image: husarion/rviz:noetic
     container_name: rviz
     restart: on-failure
-    network_mode: host
-    tty: true
+    <<: [ *net-config, *cpu-config ]
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./config/kinova_config.rviz:/root/.rviz/default.rviz
       - ./../ros_entrypoint.sh:/ros_entrypoint.sh
       - description-volume:/ros_ws
-    environment:
-      - DISPLAY=${DISPLAY:?Source of setup_virtual_desktop.sh required!}
-      - LIBGL_ALWAYS_SOFTWARE=1
-      - ROS_IP=10.15.20.3
-      - ROS_MASTER_URI=http://10.15.20.2:11311
 
 volumes:
   description-volume:

@@ -86,8 +86,8 @@ To move the manipulator use sticks. By default, cartesian _linear/angular_ movem
 
 |    Button     |            Function             |
 | :-----------: | :-----------------------------: |
-| `LEFT STICK`  | velocity steering - angular `Z` |
-| `RIGHT STICK` | velocity steering - linear `X`  |
+| `LEFT STICK`  | velocity steering - angular `X` |
+| `RIGHT STICK` | velocity steering - linear `Z`  |
 |     `LB`      |         enable driving          |
 |     `RB`      |        slow driving mode        |
 |     `RT`      |        fast driving mode        |
@@ -99,9 +99,21 @@ If neither `RB` nor `RT` is pressed, the robot operates in _regular_ driving mod
 
 ---
 
-## Running on Panther robot
+## Docker image
 
-1. Access NUC via ssh
+[![Build/Publish Docker Image](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml/badge.svg)](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml)
+
+| ROS distro | Supported architectures |
+| :--------: | :---------------------: |
+|  `noetic`  |      `linux/amd64`      |
+
+Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags)
+
+### Demo
+
+#### Running on Panther's User Computer
+
+1. Access User Computer via ssh
 
    ```bash
    ssh husarion@10.15.20.3
@@ -109,60 +121,21 @@ If neither `RB` nor `RT` is pressed, the robot operates in _regular_ driving mod
 
    The default password is `husarion`
 
-2. Clone this repo
-
-   ```bash
-   cd ~/husarion_ws/src/
-   git clone https://github.com/husarion/kortex_joystick_demo.git
-   ```
-
-3. Setup a gamepad according to [Setup joy](#setup-joy)
-
-4. Setup virtual desktop
-
-   ```bash
-   cd kortex_joystick_demo/
-   source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
-   ```
-
-5. Launch demo
-
-   ```bash
-   roslaunch kortex_joystick_demo kortex_joystick_demo.launch
-       robot_ip_address:=10.15.20.4
-   ```
-
-After a successful launch, open the Web browser and go to [10.15.20.3:8080](http://10.15.20.3:8080/vnc_auto.html). Enter a password (default `husarion`) and you should see RViz and Panther with the manipulator.
-
----
-
-## Docker image
-
-[![Build/Publish Docker Image](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml/badge.svg)](https://github.com/husarion/kortex_joystick_demo/actions/workflows/build-docker-image.yaml)
-
-| ROS distro | Supported architectures      |
-| ---------- | ---------------------------- |
-| `noetic`   | `linux/amd64`, `linux/arm64` |
-
-Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo/tags)
-
-### Demo
-
-#### Panther robot with Kinova manipulator installed on the top
-
-1. Clone this repo on your Panther:
+2. Clone this repo on your Panther:
 
    ```bash
    git clone https://github.com/husarion/kortex_joystick_demo.git
    ```
 
-2. Launch on Panther
+3. If you are using Kinova Gen3 Lite, edit [.env](./demo/.env) file and change `KINOVA_ARM_MODEL` to `gen3_lite`.
+
+4. Launch the demo
 
    Setup virtual desktop and run demo:
 
    ```bash
-   cd kortex_joystick_demo/
-   source ./kortex_joystick_demo/scripts/setup_virtual_desktop.sh
+   cd kortex_joystick_demo/demo
+   source ./setup_virtual_desktop.sh
    docker compose \
       -f compose.ouster.yaml \
       -f compose.kinova.yaml \
@@ -171,4 +144,30 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick_demo
       up
    ```
 
-3. Use Logitech gamepad to control either Panther or Kinova [Instruction](#controlling-kinova-manipulator-and-mobile-robot).
+5. Use Logitech gamepad to control either Panther or Kinova Manipulator ([Instruction](#controlling-kinova-manipulator-and-mobile-robot)).
+
+#### Running on custom computer
+
+1. Clone this repo
+
+   ```bash
+   git clone https://github.com/husarion/kortex_joystick_demo.git
+   ```
+
+2. Setup network (for this step you need to know your computer IP in Panthers network, you can check it using the `ifconfig` command). Then, edit [net.env](./demo/net.env) file and change `ROS_IP`. Example IP address can be: `10.15.20.147`.
+
+3. If you are using Kinova Gen3 Lite, edit [.env](./demo/.env) file and change `KINOVA_ARM_MODEL` to `gen3_lite`.
+
+4. Launch the demo
+
+   ```bash
+   cd kortex_joystick_demo/demo
+   docker compose \
+      -f compose.ouster.yaml \
+      -f compose.kinova.yaml \
+      -f compose.rviz.yaml \
+      -f compose.gamepad.yaml \
+      up
+   ```
+
+5. Use Logitech gamepad to control either Panther or Kinova Manipulator ([Instruction](#controlling-kinova-manipulator-and-mobile-robot)).

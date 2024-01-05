@@ -1,7 +1,8 @@
 <launch>
 
     <arg name="robot_name" default="kinova_gen3" />
-    <arg name="robot_ip_address" default="10.15.20.4"/>
+    <arg name="arm" default="gen3" doc="valid values are: gen3, gen3_lite" />
+    <arg name="robot_ip_address" default="10.15.20.4" />
     <arg name="gripper_name" default="robotiq_2f_85" />
     <arg name="joy_topic" default="/joy" />
     <arg name="test" default="false" />
@@ -16,18 +17,19 @@
 
     <include file="$(find kortex_driver)/launch/kortex_driver.launch">
         <arg name="robot_name" value="$(arg robot_name)" />
-        <arg name="ip_address" value="$(arg robot_ip_address)"/>
-        <arg name="gripper" value="$(arg gripper_name)" />
+        <arg name="ip_address" value="$(arg robot_ip_address)" />
+        <arg name="arm" value="$(arg arm)" />
+        <arg name="gripper" value="$(arg gripper_name)" if="$(eval arg('arm') == 'gen3')" />
         <arg name="prefix" value="$(arg robot_name)_" />
         <arg name="start_moveit" value="false" />
         <arg name="start_rviz" value="false" />
     </include>
 
     <include file="$(find kinova_vision)/launch/kinova_vision.launch">
-        <arg name="device" value="$(arg robot_ip_address)"/>
-        <arg name="camera_link_frame_id" value="$(arg robot_name)_camera_link"/>
-        <arg name="color_frame_id" value="$(arg robot_name)_camera_color_frame"/>
-        <arg name="depth_frame_id" value="$(arg robot_name)_camera_depth_frame"/>
+        <arg name="device" value="$(arg robot_ip_address)" />
+        <arg name="camera_link_frame_id" value="$(arg robot_name)_camera_link" />
+        <arg name="color_frame_id" value="$(arg robot_name)_camera_color_frame" />
+        <arg name="depth_frame_id" value="$(arg robot_name)_camera_depth_frame" />
     </include>
 
     <group ns="$(arg robot_name)">
@@ -37,5 +39,5 @@
             <remap from="gripper_controller/gripper_cmd" to="$(arg robot_name)_$(arg gripper_name)_gripper_controller/gripper_cmd" />
         </node>
     </group>
-    
+
 </launch>

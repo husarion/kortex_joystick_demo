@@ -1,13 +1,15 @@
+x-net-config:
+  &net-config
+  network_mode: host
+  env_file: net.env
+
 services:
 
   realsense-camera:
     image: husarion/realsense:noetic--20230522
     container_name: realsense-camera
     restart: on-failure
-    network_mode: host
-    environment:
-      - ROS_IP=10.15.20.3
-      - ROS_MASTER_URI=http://10.15.20.2:11311
+    <<: *net-config
     volumes:
       - /dev:/dev
     device_cgroup_rules:
