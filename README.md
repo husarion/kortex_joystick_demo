@@ -149,7 +149,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
 #### Running on custom computer with gamepad
 
 > **Note:**
-> Gamepad docker is launched by default on the Pnahter robot. To use it directly from your PC you have to disable it on the robot first. See [Disable Gamepad on the Panther robot](#disable-gamepad-on-the-panther-robot) section for instruction.
+> Gamepad docker is launched by default on the Panhter robot. To use it directly from your PC, you have to disable it on the robot first. See [Disable Gamepad on the Panther robot](#disable-gamepad-on-the-panther-robot) section for instructions.
 
 
 1. Clone this repo
