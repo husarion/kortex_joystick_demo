@@ -144,7 +144,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
       up
    ```
 
-5. Use Logitech gamepad to control either Panther or Kinova Manipulator ([Instruction](#controlling-kinova-manipulator-and-mobile-robot).
+5. Use Logitech gamepad to control either Panther or Kinova Manipulator ([Instruction](#controlling-kinova-manipulator-and-mobile-robot)).
 
 #### Running on custom computer with gamepad
 
