@@ -146,7 +146,11 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
 
 5. Use Logitech gamepad to control either Panther or Kinova Manipulator ([Instruction](#controlling-kinova-manipulator-and-mobile-robot)).
 
-#### Running on custom computer
+#### Running on custom computer with gamepad
+
+> **Note:**
+> Gamepad docker is launched by default on the Panhter robot. To use it directly from your PC, you have to disable it on the robot first. See [Disable Gamepad on the Panther robot](#disable-gamepad-on-the-panther-robot) section for instructions.
+
 
 1. Clone this repo
 
@@ -171,3 +175,23 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
    ```
 
 5. Use Logitech gamepad to control either Panther or Kinova Manipulator ([Instruction](#controlling-kinova-manipulator-and-mobile-robot)).
+
+#### Disable Gamepad on the Panther robot
+
+1. Log into Built-in Computer:
+
+```
+ssh husarion@10.15.20.2
+```
+
+2. Edit `compose.yaml` file with command below and comment out or remove `gamepad_controller` service section:
+
+```
+nano compose.yaml
+```
+
+3. Restart Docker:
+
+```
+docker compose up -d --force-recreate
+```
