@@ -166,6 +166,7 @@ Available on [Docker Hub](https://hub.docker.com/r/husarion/kortex-joystick/tags
 
    ```bash
    cd kortex_joystick_demo/demo
+   xhost local:docker
    docker compose \
       -f compose.ouster.yaml \
       -f compose.kinova.yaml \
